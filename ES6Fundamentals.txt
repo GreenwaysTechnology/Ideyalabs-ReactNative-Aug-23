@@ -424,3 +424,350 @@ let c = (a === b) ? "a and b are equal" : "a and b are not equal"
 console.log(c)
 ...................................................................................
 ...................................................................................
+...................................................................................
+				Functions
+..................................................................................
+
+function is basic building block of javascript.
+//functions -
+
+//basic function delclaration and invocation
+
+function sayHello() {
+    console.log('Hello function')
+}
+sayHello()
+
+
+//function ars and parameters
+//a and b are args
+function add(a, b) {
+    let c = a + b
+    console.log(`The add result is ${c}`)
+}
+//10,10 are parameters
+add(10, 10)
+//
+let x = 10
+let y = 90
+add(x, y)
+.................
+
+//es 6 default args 
+function add(a = 0, b = 0) {
+    console.log(`a ${a} b ${b}`)
+    let c = a + b
+    console.log(`The add result is ${c}`)
+}
+add(10, 10)
+add() // no value is passed
+.............
+
+Returning value:
+function add(a = 0, b = 0) {
+    return a + b
+}
+console.log(`The result is ${add(10,10)}`)
+
+//returning value from the function 
+
+function add(a = 0, b = 0) {
+    return a + b
+}
+let c = add(10, 10)
+console.log(`c ${c}`)
+console.log(`c ${add(10, 10)}`)
+
+function doStuff() {
+    return // undefined
+}
+console.log(doStuff())
+
+//login
+// function login(userName = '', password = '') {
+//     if (userName === 'admin' && password === 'admin') {
+//         return 'Login Success'
+//     } else {
+//         return 'Login Failed'
+//     }
+// }
+function login(userName = '', password = '') {
+    return (userName === 'admin') && (password === 'admin') ? "Login Success" : "Login failed"
+}
+console.log(login('admin', 'admin'))
+.....................................................................................
+			   Functional Programming principles
+
+1.function is first class citizen
+   function is value , literal
+
+Since function is value, we can store into variables
+
+
+function sayHello() {
+    return 'Hello'
+}
+//invoke 
+sayHello()
+/////////////////////////////////////////////////////
+
+//function can be stored into variable
+
+let hello = sayHello
+console.log(hello)
+//once the function is stored into variable ,we can invoke
+console.log(hello())
+
+//function is declared in the same line 
+
+//function without name : anonmous function 
+let add = function (a = 0, b = 0) {
+    //logic 
+    console.log('add')
+    return a + b
+}
+console.log(add(10, 34))
+
+
+//a=10,b=10
+//a=x,b=y
+function add(a, b) {
+
+}
+add(10, 10)
+
+let x = 20
+let y = 20
+add(x, y)
+
+
+function sayGreet(hello) {
+    hello()
+}
+let greet = function () {
+    console.log('greet')
+}
+sayGreet(greet)
+
+sayGreet(function () {
+    console.log('Hello')
+})
+////////////////////////////////////////////////////
+
+function login(resolve, reject) {
+    let isLoggedIn = false
+    if (isLoggedIn) {
+        resolve('Login success')
+    } else {
+        reject('Login failed')
+    }
+
+}
+login(function (status) {
+    console.log(status)
+}, function (err) {
+    console.log(err)
+})
+
+Arrow functions:
+
+//es 5 function declaration
+
+let hello = function () {
+    console.log('hello')
+}
+hello()
+//es 6 arrow function 
+let hai = () => {
+    console.log('hello')
+}
+hai()
+//if function has only one line of body we can remove {}
+hai = () => console.log('hello')
+hai()
+
+//args and parameters
+let add = (a = 10, b = 20) => {
+    let c = a + b
+    console.log(`c ${c}`)
+}
+add(10, 10)
+//if function returns
+add = (a = 10, b = 20) => {
+    return a + b;
+}
+console.log(`c ${add(10, 10)}`)
+
+//if function only returns , we can remove return statement and {}
+add = (a = 10, b = 20) => a + b;
+console.log(`c ${add(10, 10)}`)
+
+
+// function sayGreet(hello) {
+//     hello()
+// }
+
+
+let sayGreet = hello => hello()
+
+let greet = () => console.log('greet')
+sayGreet(greet)
+
+sayGreet(() => {
+    console.log('Hello')
+})
+sayGreet(() => console.log('Hello'))
+
+
+const login = (resolve, reject) => {
+    let isLoggedIn = false
+    if (isLoggedIn) {
+        resolve('Login success')
+    } else {
+        reject('Login failed')
+    }
+
+}
+login(status => console.log(status), err => console.log(err))
+...................................................................................
+
+
+
+
+
+.....................................................................................
+			Objects
+.....................................................................................
+Js is object based language.
+
+How to create objects?
+
+1.Constructor pattern
+  es 5 way - function
+  es 6 way - class
+2.literal Patterns
+  no class,no functions
+
+
+ES 5 functions
+//object template.
+
+function Employee(id = 0, name = 'default', salary = 0) {
+    //instance variables
+    this.id = id
+    this.name = name
+    this.salary = salary
+    //instance methods
+    this.calculateSalary = (noOfdays) => {
+        return this.salary * noOfdays
+    }
+}
+//create object  
+//emp is reference variable
+//new is operator
+//Employee() , constructor call 
+let emp = new Employee(12, 'Subramanian', 1000)
+console.log(`id ${emp.id} ${emp.name} ${emp.calculateSalary(100)}`)
+
+.....................................................................................
+
+class Based:
+//object template.
+
+// function Employee(id = 0, name = 'default', salary = 0) {
+//     //instance variables
+//     this.id = id
+//     this.name = name
+//     this.salary = salary
+//     //instance methods
+//     this.calculateSalary = (noOfdays) => {
+//         return this.salary * noOfdays
+//     }
+// }
+
+class Employee {
+    constructor(id = 0, name = 'default', salary = 0) {
+        //instance variables
+        this.id = id
+        this.name = name
+        this.salary = salary
+    }
+    //instance methods
+    // calculateSalary = (noOfdays) => {
+    //     return this.salary * noOfdays
+    // }
+    calculateSalary(noOfdays) {
+        return this.salary * noOfdays
+    }
+}
+//create object  
+//emp is reference variable
+//new is operator
+//Employee() , constructor call 
+let emp = new Employee(12, 'Subramanian', 1000)
+console.log(`id ${emp.id} ${emp.name} ${emp.calculateSalary(100)}`)
+....................................................................................
+				Code Reuse - Hierachy
+
+There are two types of hierachy
+
+1.IS-A - inheritance
+   es 5 inheritance -  prototype based inheritance
+   es 6 inheritance - class based inheritance.
+2.HAS-A -compostion
+
+//base class
+class Account {
+    constructor() {
+        console.log('Account ')
+    }
+    //methods
+    deposit() {
+        return 10
+    }
+    withdraw() {
+        return 50
+    }
+}
+
+//derived
+class SavingsAccount extends Account {
+    constructor() {
+        super()
+        console.log('SavingsAccount ')
+    }
+    //override
+    deposit() {
+        return 10 * super.deposit()
+    }
+    withdraw() {
+        return 20 * super.withdraw()
+    }
+}
+
+let sb = new SavingsAccount()
+console.log(sb.deposit())
+console.log(sb.withdraw())
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//literal objects 
+let customer = {
+    id: 1,
+    name: 'Subramanian',
+    city: 'Coimbatore'
+}
+console.log(customer.id, customer.name, customer.city)
+customer.id = 90
+customer.name = 'ram'
+console.log(customer.id, customer.name, customer.city)
+
+//complex literal : has -a : object has other objectPosition: 
+
+let person = {
+    id: 1,
+    name: 'Subramanian',
+    address: {
+        street: '10th street',
+        city: 'Coimbatore'
+    }
+}
+console.log(person.id, person.name, person.address.city)
