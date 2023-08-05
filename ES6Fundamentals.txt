@@ -771,3 +771,166 @@ let person = {
     }
 }
 console.log(person.id, person.name, person.address.city)
+
+.....................................................................................
+				
+Module design patterns:
+1.Namespace design pattern
+2.AMD design pattern
+3.commonjs - cjs
+4.es 6 module design pattern
+5.system design pattern
+
+
+
+ES 6 module design pattern
+
+How to share code? and how to link files?
+
+code:
+ variables with any literals
+ class
+ objects
+ arrays
+ functions
+
+Code sharing keywords
+
+export 
+export default
+
+linking files and import
+
+import
+......
+export :
+=> export can be used to "share many variables" from the single file - multi sharing
+when you export ? you can import things from the other files using
+  destructuring syntax.
+
+import {} from 'fileName'
+
+
+Note:
+ Web browsers do not support "es 6 module" directly.
+
+How to run modular code?
+
+1.Using build tools
+2.Using modern browser configuration
+
+Using build tools:
+.................
+webpack
+
+How to install webpack in our project?
+
+Steps:
+
+1.make sure that you have package.json file
+ if not , create package.json file
+
+npm init  --yes
+
+2.install webpack
+  npm install webpack webpack-cli --save-dev
+
+3.add webpack.config.js in the project root dir
+
+const path = require('path');
+
+module.exports = {
+  entry: './src/index.js',
+  mode:'development',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+};
+
+4.build /bundle your code
+ open package.json
+ add entry into scripts
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "tsc",
+    "build": "webpack --watch"
+  },
+
+5.start bundling
+  open cmd and run the following command
+npm run build
+
+> es6-apps@1.0.0 build
+> webpack
+
+asset bundle.js 5.19 KiB [emitted] (name: main)
+runtime modules 670 bytes 3 modules
+cacheable modules 758 bytes
+  ./src/index.js 146 bytes [built] [code generated]
+  ./src/mylib.js 612 bytes [built] [code generated]
+webpack 5.70.0 compiled successfully in 113 ms
+
+6.add bundle file inside index.html
+     <script src="dist/bundle.js"></script>
+
+
+
+eg:
+src/util.js
+//declare some variables
+
+// export const name = 'Subramanian'
+// export const city = 'Coimbatore'
+// export const salary = 9000
+// export const status = true
+// export const greet = () => 'hello'
+// export const skills = ['react', 'mobile']
+
+const name = 'Subramanian'
+const city = 'Coimbatore'
+const salary = 9000
+const status = true
+const greet = () => 'hello'
+const skills = ['react', 'mobile']
+
+export { name, city, salary, status, greet, skills }
+
+src/index.js
+import { name,city,status,skills,greet } from "./util";
+
+console.log(name,city)
+console.log(status)
+console.log(skills)
+console.log(greet())
+..
+src/services/user.service.js
+
+
+// export default class TodoService {
+//     constructor() {
+
+//     }
+//     //
+//     list() {
+//         return [{ id: 1, name: 'subramanian' }]
+//     }
+// }
+
+class UserService {
+    constructor() {
+
+    }
+    //
+    list() {
+        return [{ id: 1, name: 'subramanian' }]
+    }
+}
+export default UserService;
+
+src/index.js
+import  UserService  from "./services/user.service";
+
+let userService = new UserService()
+console.log(userService.list())
