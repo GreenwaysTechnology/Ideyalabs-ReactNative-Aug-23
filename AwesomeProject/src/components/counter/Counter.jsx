@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client';
+import { Button, Text } from 'react-native'
 
-class Counter extends React.Component {
+export class Counter extends React.Component {
     //inital state
     state = {
         counter: 0
@@ -16,22 +16,14 @@ class Counter extends React.Component {
             // return Object.assign({}, prvState, { counter: prvState.counter + 1 })
             return { ...prvState, counter: prvState.counter + 1 }
         })
+
     }
 
     render() {
         return <>
-            <h1>Counter {this.state.counter} </h1>
-            <button onClick={this.onIncrement} >increment</button>
+            <Text>Counter {this.state.counter} </Text>
+            <Button onPress={this.onIncrement} title="Increment" />
         </>
     }
 
 }
-
-
-const App = () => {
-    return <Counter />
-}
-
-const rootElement = document.getElementById('root')
-const root = ReactDOM.createRoot(rootElement);
-root.render(<App />)

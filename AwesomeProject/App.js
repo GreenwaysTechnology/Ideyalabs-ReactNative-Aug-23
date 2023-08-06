@@ -1,9 +1,16 @@
-import { ALBUMS } from "./src/components/mock-data/albums";
-import { View } from "react-native";
-import { AlbumMaster } from "./src/components/albumbs/AlbumMaster";
+import { View } from 'react-native'
+import { Counter } from './src/components/counter/Counter'
+import { StyleSheet } from 'react-native'
 
-const App = props => <View>
-    <AlbumMaster albums={ALBUMS} />
-</View>
-
-export default App;
+export default function App() {
+    return <View style={styles.container}>
+        <Counter />
+    </View>
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
+})
