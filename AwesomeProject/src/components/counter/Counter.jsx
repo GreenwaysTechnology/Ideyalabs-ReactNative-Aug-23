@@ -4,26 +4,33 @@ import { Button, Text } from 'react-native'
 export class Counter extends React.Component {
     //inital state
     state = {
-        counter: 0
+        incValue: 10,
+        decValue: 100
+    };
+    //Listener
+    onIncrement = (e) => {
+      this.setState(prvState => ({ ...prvState, incValue: prvState.incValue + 1 }))
     }
     //Listener
-    onIncrement = () => {
-        this.setState((prvState) => {
-            //immutable object 
-            // return {
-            //     counter: prvState.counter + 1
-            // }
-            // return Object.assign({}, prvState, { counter: prvState.counter + 1 })
-            return { ...prvState, counter: prvState.counter + 1 }
-        })
-
+    onDecrement = () => {
+        this.setState(prvState => ({ ...prvState, decValue: prvState.decValue - 1 }))
     }
 
     render() {
-        return <>
-            <Text>Counter {this.state.counter} </Text>
-            <Button onPress={this.onIncrement} title="Increment" />
-        </>
+        // return <CounterDisplay incValue={this.state.incValue} decValue={this.
+        // state.decValue}/>
+        return <CounterDisplay {...this.state} onIncrement={this.onIncrement} onDecrement={this.onDecrement}  />
+
     }
 
+}
+//CounterDisplay = >Stateless component or presentational component
+// Todo:You have to write in a separate file CounterDisplay.jsx
+export const CounterDisplay = props => {
+    return <>
+        <Text>Increment Value {props.incValue} DecrementValue {props.decValue}  </Text>
+        <Button onPress={props.onIncrement} title="Increment" />
+        <Button onPress={props.onDecrement} title="Decrement" />
+
+    </>
 }
