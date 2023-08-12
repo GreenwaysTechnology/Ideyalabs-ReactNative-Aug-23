@@ -40,16 +40,30 @@ const showdashboard = (status, resolve, reject) => {
     })
 
 }
+// getUser((user) => {
+//     login(user, (status) => {
+//         showdashboard(status, (page) => {
+//             console.log(page)
+//         }, (err) => {
+//             console.log(err)
+//         })
+//     }, (err) => {
+//         console.log(err)
+//     })
+// }, (err) => {
+//     console.log(err)
 
-async function main() {
-    try {
-        const user = await getUser()
-        const status = await login(user)
-        const page = await showdashboard(status)
-        console.log(user, status, page)
-    }
-    catch (err) {
-        console.log(err)
-    }
-}
-main()
+// })
+getUser()
+    .then(user => {
+        return login(user)
+    })
+    .then(stats=>{
+        return showdashboard(stats)
+    })
+    .then(page=>{
+        console.log(page)
+    })
+    .catch(err => {
+        console.log(er)
+    })
