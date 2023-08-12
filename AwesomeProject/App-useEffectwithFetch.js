@@ -8,25 +8,27 @@ const Todos = props => {
         isLoaded: false,  //spinners or progress bar 
         items: [] //todo data 
     })
-    async function init() {
-        const url = `https://jsonplaceholder.typicode.com/todos`;
-        try {
-            const response = await fetch(url)
-            const todos = await response.json()
-            setTodos({
-                items: todos,
-                isLoaded: true
-            })
-        }
-        catch (err) {
-            setTodos({
-                isLoaded: true,
-                error: err
-            })
-        }
-    }
     useEffect(() => {
-        init()
+        //api logic
+        const url = `https://jsonplaceholder.typicode.com/todos`;
+        fetch(url)
+            .then(response => {
+                //extract data 
+                return response.json()
+            })
+            .then(todos => {
+                console.log(todos)
+                setTodos({
+                    items: todos,
+                    isLoaded: true
+                })
+            })
+            .catch(err => {
+                setTodos({
+                    isLoaded: true,
+                    error: err
+                })
+            })
     }, [])
 
     const { error, isLoaded, items } = todos;
