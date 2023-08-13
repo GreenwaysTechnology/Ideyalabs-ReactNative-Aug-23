@@ -1,92 +1,50 @@
-
-import { StyleSheet, Text, View, Button, Alert, StatusBar, ActivityIndicator, FlatList } from 'react-native'
-import { useEffect, useState } from 'react'
-
-const Todos = props => {
-    const [todos, setTodos] = useState({
-        error: null,
-        isLoaded: false,  //spinners or progress bar 
-        items: [] //todo data 
-    })
-    async function init() {
-        const url = `https://jsonplaceholder.typicode.com/todos`;
-        try {
-            const response = await fetch(url)
-            const todos = await response.json()
-            setTodos({
-                items: todos,
-                isLoaded: true
-            })
-        }
-        catch (err) {
-            setTodos({
-                isLoaded: true,
-                error: err
-            })
-        }
-    }
-    useEffect(() => {
-        init()
-    }, [])
-
-    const { error, isLoaded, items } = todos;
-    // conditional rendering:
-    if (error) {
-        return <View>
-            <Text>Error: {error.message}</Text>
-        </View>
-    }
-    else if (!isLoaded) {
-        //show spinner
-        return <View style={{
-            alignItems: 'center', justifyContent: 'center'
-        }}>
-            <ActivityIndicator size="large" color="#000ff" />
-        </View >
-    } else {
-        //show data
-        return <FlatList
-            keyExtractor={(todo) => {
-                return todo.id
-            }}
-            data={items}
-            renderItem={({ item }) => {
-                const { title } = item
-                return <View style={styles.item} >
-                    <Text style={styles.text}>{title}</Text>
-                </View>
-            }
-
-            }
-        />
-    }
-}
+import { Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 
-
-const App = () => {
-    return <View style={styles.container}>
-        <Text style={{ alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', color: 'red', textAlign: 'center' }} >Todo App</Text>
-        <Todos />
-
+const RootLayout = props => {
+    return <View style={styles.rootlayout}>
+        {props.children}
     </View>
 }
-//page style :Common style 
+const HeaderLayout = props => {
+    return <View style={styles.headerlayout}>
+        {props.children}
+    </View>
+}
+const Page = props => {
+    return <>
+        <Text>Page</Text>
+    </>
+}
+const Header = props => {
+    return <>
+        <Text>Header</Text>
+    </>
+}
+
+export default function App() {
+    return <View style={styles.container}>
+        <RootLayout>
+            <HeaderLayout>
+                    <Header/>
+            </HeaderLayout>
+            <Page />
+        </RootLayout>
+    </View>
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
-        marginTop: StatusBar.currentHeight || 0
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    item: {
-        backgroundColor: '#f9c2ff',
-        padding: 20,
-        marginVertical: 8,
-        marginHorizontal: 8
+    rootlayout: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
-    title: {
-        fontSize: 32
-    }
+    headerlayout: {
+        backgroundColor:'pink'
+    },
 })
-
-export default App; 
