@@ -1,37 +1,80 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'
+import { configureStore, createAsyncThunk, createSlice, } from '@reduxjs/toolkit'
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import logger from 'redux-logger'
 
-class Counter extends React.Component {
-    //inital state
-    state = {
-        counter: 0
-    }
-    //Listener
-    onIncrement = () => {
-        this.setState((prvState) => {
-            //immutable object 
-            // return {
-            //     counter: prvState.counter + 1
-            // }
-            // return Object.assign({}, prvState, { counter: prvState.counter + 1 })
-            return { ...prvState, counter: prvState.counter + 1 }
+//api 
+function fetchTodos() {
+    const url = 'https://jsonplaceholder.typicode.com/todos'
+    return fetch(url)
+}
+//middleeware for making async calls : webserverice,timer
+const fetchTodosAsync = createAsyncThunk('todos/fetch', async () => {
+    const todos = await (await fetchTodos()).json()
+    return todos
+})
+
+const TodoSlice = createSlice({
+    name: 'todos',
+    initialState: {
+        entities: [],
+        loading: 'idle'
+    },
+    reducers: {},
+    extraReducers: builder => {
+        builder.addCase(fetchTodosAsync.fulfilled, (state, action) => {
+            state.loading = 'fulfilled'
+            state.entities.push(action.payload)
         })
     }
+})
+const TodoReducer = TodoSlice.reducer
 
-    render() {
-        return <>
-            <h1>Counter {this.state.counter} </h1>
-            <button onClick={this.onIncrement} >increment</button>
-        </>
+const appStore = configureStore({
+    reducer: {
+        //list of Reducers
+        todo: TodoReducer
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+})
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+//Step 4 : Consume state from the redux, and send actions to redux for mutation
+const Todos = props => {
+    const todos = useSelector(state => {
+        return state.todo
+    })
+    // console.log(todos.entities[0])
+    //Get Dispatcher 
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTodosAsync())
+    }, [])
+    
+    const { loading, entities } = todos
+    console.log(entities)
+    if (loading === 'fulfilled') {
+        return <ul>
+            {
+                entities[0].map(todo => {
+                    return <li key={todo.id}>{todo.title}</li>
+                })
+            }
+        </ul>
     }
-
 }
-
 
 const App = () => {
-    return <Counter />
+    return <>
+        <Provider store={appStore}>
+            <Todos />
+        </Provider>
+    </>
 }
 
-const rootElement = document.getElementById('root')
-const root = ReactDOM.createRoot(rootElement);
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(<App />)
