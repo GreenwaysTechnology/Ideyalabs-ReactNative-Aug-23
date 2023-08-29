@@ -2975,6 +2975,9 @@ function updateCustomer(customer, mobileNo) {
         }
     }
 }
+
+//customer.contact.communcation.mobile = 00000
+
 let customer = {
     id: 1,
     name: 'Subramanian',
@@ -3602,6 +3605,7 @@ Actions:
   Action is object having type field
  let myaction = {
    type:'counter/increment'
+   payload:2
  }
 
 Action constants:

@@ -842,7 +842,7 @@ File Name conventions:
 
  FileName must match component feature  - profile 
 
-File Name can be saved as fileName.js or fileName.jsx
+File Name can be saved as fileName.js or fileName.jsx or fileName.tsx
 
 Rules for jsx extensions:
 
@@ -1003,6 +1003,7 @@ function Welcome() {
 |	
 |
 compiled code
+
 function Welcome() {
   return React.createElement(
     'h1',

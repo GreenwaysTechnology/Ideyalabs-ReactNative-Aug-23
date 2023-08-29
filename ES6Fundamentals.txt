@@ -86,17 +86,17 @@ es 6 variables are declared using "let and const"
 let | const variableName = value(literal)
 
 
-types of literals
+types of literals     types
 
-1.string
-2.number
-3.boolean
-4.undefined
-5.NaN
-6.infinity
-7.function
-8.null
-9.object
+1.string             - string
+2.number             - number
+3.boolean            - boolean
+4.undefined          - undefined
+5.NaN                - number
+6.infinity           - number
+7.function           - function
+8.null               - object
+9.object             - object
 
 types ;
 
@@ -118,15 +118,7 @@ strings
 -multi line string literal
 
 
-strings 
 
-1. declared using  "" ,'',``(es6)
-2. 16 bit unicode character
-
-`` - back tick notation:
-
--string interpolation
--multi line string literal
 
 //strings 
 //"",'',``(backtick -template literals) 
@@ -306,79 +298,7 @@ if (mynewVar) {
 } else {
     console.log(`${mynewVar} is invalid`)
 }
-.....................................................................................
-....................................................................................
-				Advanced Booleans
-.....................................................................................
 
-In javascript every thing is true,except the following values
-
-Falsy Values:
-.............
-1.boolean false
-2.0
-3.undefined
-4.NaN
-5.empty string("",'')
-6.null
-
-Truthy values are except the above values are considered truthy values....
-let myvar //undefined
-
-if (myvar) {
-    console.log(`${myvar} is valid`)
-} else {
-    console.log(`${myvar} is invalid`)
-}
-myvar = 0
-if (myvar) {
-    console.log(`${myvar} is valid`)
-} else {
-    console.log(`${myvar} is invalid`)
-}
-
-myvar = ""
-if (myvar) {
-    console.log(`${myvar} is valid`)
-} else {
-    console.log(`${myvar} is invalid`)
-}
-
-myvar = 10 * undefined
-if (myvar) {
-    console.log(`${myvar} is valid`)
-} else {
-    console.log(`${myvar} is invalid`)
-}
-
-
-myvar = null
-if (myvar) {
-    console.log(`${myvar} is valid`)
-} else {
-    console.log(`${myvar} is invalid`)
-}
-
-myvar = false
-if (myvar) {
-    console.log(`${myvar} is valid`)
-} else {
-    console.log(`${myvar} is invalid`)
-}
-
-//
-let mynewVar = "subramanian"
-if (mynewVar) {
-    console.log(`${mynewVar} is valid`)
-} else {
-    console.log(`${mynewVar} is invalid`)
-}
-mynewVar = 12
-if (mynewVar) {
-    console.log(`${mynewVar} is valid`)
-} else {
-    console.log(`${mynewVar} is invalid`)
-}
 .....................................................................................
 Operators:
 
@@ -630,11 +550,6 @@ const login = (resolve, reject) => {
 }
 login(status => console.log(status), err => console.log(err))
 ...................................................................................
-
-
-
-
-
 .....................................................................................
 			Objects
 .....................................................................................
@@ -780,6 +695,7 @@ Module design patterns:
 3.commonjs - cjs
 4.es 6 module design pattern
 5.system design pattern
+6.UMD
 
 
 
